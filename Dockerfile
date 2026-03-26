@@ -20,4 +20,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copy project
 COPY . .
 
+# Make entrypoint executable
+RUN chmod +x scripts/entrypoint.sh
+
 EXPOSE 8000
+
+ENTRYPOINT ["scripts/entrypoint.sh"]

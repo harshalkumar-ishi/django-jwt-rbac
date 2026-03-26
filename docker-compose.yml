@@ -15,9 +15,9 @@ services:
       - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   web:
     build:
@@ -25,10 +25,6 @@ services:
       dockerfile: Dockerfile
     container_name: jwt_rbac_web
     restart: unless-stopped
-    command: >
-      sh -c "python manage.py migrate &&
-             python manage.py seed_roles &&
-             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
